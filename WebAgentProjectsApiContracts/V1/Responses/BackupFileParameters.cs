@@ -1,4 +1,4 @@
-﻿namespace WebAgentContracts.V1.Responses;
+﻿namespace WebAgentProjectsApiContracts.V1.Responses;
 
 public sealed class BackupFileParameters
 {

@@ -1,4 +1,4 @@
-﻿namespace WebAgentContracts.V1.Routes;
+﻿namespace WebAgentProjectsApiContracts.V1.Routes;
 
 public static class ProjectsApiRoutes
 {

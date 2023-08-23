@@ -1,4 +1,4 @@
-﻿namespace WebAgentContracts.V1.Requests;
+﻿namespace WebAgentProjectsApiContracts.V1.Requests;
 
 public sealed class RestoreBackupRequest
 {
