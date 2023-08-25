@@ -4,5 +4,5 @@ namespace WebAgentMessagesContracts;
 
 public interface IMessenger
 {
-    Task SendMessage(WebAgentMessage webAgentMessage);
+    Task SendMessage(string message);
 }

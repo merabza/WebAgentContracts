@@ -1,3 +1,4 @@
-﻿namespace WebAgentMessagesContracts;
+﻿//namespace WebAgentMessagesContracts;
 
-public record WebAgentMessage(string Message, string[] Parameters);
+//public record WebAgentMessage(string Message, string[] Parameters);
+
