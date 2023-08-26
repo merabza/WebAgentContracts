@@ -8,18 +8,15 @@ public static class ProjectsApiRoutes
 
     public static class Projects
     {
-        private const string ProjectBase = Base + "/projects";
-        public const string UpdateSettings = ProjectBase + "/updatesettings";
-        public const string Update = ProjectBase + "/update";
-        public const string UpdateService = ProjectBase + "/updateservice";
-        public const string StopService = ProjectBase + "/stop/{serviceName}";
-        public const string StartService = ProjectBase + "/start/{serviceName}";
-        public const string RemoveProject = ProjectBase + "/remove/{projectName}";
-        public const string RemoveService = ProjectBase + "/removeservice/{projectName}/{serviceName}";
-
-        public const string GetAppSettingsVersion =
-            ProjectBase + "/getappsettingsversion/{serverSidePort}/{apiVersionId}";
-
-        public const string GetVersion = ProjectBase + "/getversion/{serverSidePort}/{apiVersionId}";
+        public const string ProjectBase = Base + "/projects";
+        public const string UpdateSettings = "/updatesettings";
+        public const string Update = "/update";
+        public const string UpdateService = "/updateservice";
+        public const string StopService = "/stop/{serviceName}";
+        public const string StartService = "/start/{serviceName}";
+        public const string RemoveProject = "/remove/{projectName}";
+        public const string RemoveService = "/removeservice/{projectName}/{serviceName}";
+        public const string GetAppSettingsVersion = "/getappsettingsversion/{serverSidePort}/{apiVersionId}";
+        public const string GetVersion = "/getversion/{serverSidePort}/{apiVersionId}";
     }
 }
