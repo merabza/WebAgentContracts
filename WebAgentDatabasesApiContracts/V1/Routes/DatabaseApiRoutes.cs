@@ -8,38 +8,33 @@ public static class DatabaseApiRoutes
 
     public static class Database
     {
-        private const string DatabaseBase = Base + "/database";
+        public const string DatabaseBase = Base + "/database";
 
-        //// POST api/database/checkrepairdatabase
-        public const string CheckRepairDatabase = DatabaseBase + "/checkrepairdatabase/{databaseName}";
+        //// POST api/database/checkrepairdatabase/{databaseName}
+        public const string CheckRepairDatabase = "/checkrepairdatabase/{databaseName}";
 
         //// POST api/database/createbackup/{databaseName}
-        public const string CreateBackup = DatabaseBase + "/createbackup/{databaseName}";
+        public const string CreateBackup = "/createbackup/{databaseName}";
 
         //// POST api/database/executecommand/{databaseName}
-        public const string ExecuteCommand = DatabaseBase + "/executecommand/{databaseName}";
+        public const string ExecuteCommand = "/executecommand/{databaseName}";
 
         //// GET api/database/getdatabasenames
-        //[HttpGet("getdatabasenames")]
-        public const string GetDatabaseNames = DatabaseBase + "/getdatabasenames";
+        public const string GetDatabaseNames = "/getdatabasenames";
 
-        //// GET api/database/isdatabaseexists
-        //[HttpGet("isdatabaseexists/{databaseName}")]
-        public const string IsDatabaseExists = DatabaseBase + "/isdatabaseexists/{databaseName}";
+        //// GET api/database/isdatabaseexists/{databaseName}
+        public const string IsDatabaseExists = "/isdatabaseexists/{databaseName}";
 
-        //[HttpPut("restorebackup/{databaseName}")]
-        public const string RestoreBackup = DatabaseBase + "/restorebackup/{databaseName}";
+        //// PUT restorebackup/{databaseName}
+        public const string RestoreBackup = "/restorebackup/{databaseName}";
 
-        //// POST api/database/recompileprocedures
-        //[HttpPost("recompileprocedures/{databaseName}")]
-        public const string RecompileProcedures = DatabaseBase + "/recompileprocedures/{databaseName}";
+        //// POST api/database/recompileprocedures/{databaseName}
+        public const string RecompileProcedures = "/recompileprocedures/{databaseName}";
 
-        //// GET api/database/testconnection
-        //[HttpGet("testconnection/{databaseName?}")]
-        public const string TestConnection = DatabaseBase + "/testconnection/{databaseName?}";
+        //// GET api/database/testconnection/{databaseName?}
+        public const string TestConnection = "/testconnection/{databaseName?}";
 
-        //// POST api/database/updatestatistics
-        //[HttpPost("updatestatistics/{databaseName}")]
-        public const string UpdateStatistics = DatabaseBase + "/updatestatistics/{databaseName}";
+        //// POST api/database/updatestatistics/{databaseName}
+        public const string UpdateStatistics = "/updatestatistics/{databaseName}";
     }
 }
