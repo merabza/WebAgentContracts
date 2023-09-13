@@ -11,4 +11,6 @@ public sealed class UpdateServiceRequest
     public string? ProgramArchiveExtension { get; set; }
     public string? ParametersFileDateMask { get; set; }
     public string? ParametersFileExtension { get; set; }
+    public string? ServiceDescriptionSignature { get; set; }
+    public string? ProjectDescription { get; set; }
 }
