@@ -15,7 +15,7 @@ public static class ProjectsApiRoutes
         public const string StopService = "/stop/{serviceName}/{environmentName}";
         public const string StartService = "/start/{serviceName}/{environmentName}";
         public const string RemoveProject = "/remove/{projectName}/{environmentName}";
-        public const string RemoveService = "/removeservice/{projectName}/{serviceName}/{environmentName}";
+        public const string RemoveService = "/removeservice/{projectName}/{environmentName}/{isService}";
         public const string GetAppSettingsVersion = "/getappsettingsversion/{serverSidePort}/{apiVersionId}";
         public const string GetVersion = "/getversion/{serverSidePort}/{apiVersionId}";
     }
