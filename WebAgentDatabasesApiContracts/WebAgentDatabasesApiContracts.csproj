@@ -11,9 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ParametersManagement\LibDatabaseParameters\LibDatabaseParameters.csproj" />
+    <ProjectReference Include="..\..\DatabaseTools\DbTools\DbTools.csproj" />
     <ProjectReference Include="..\..\SystemTools\SystemToolsShared\SystemToolsShared.csproj" />
-    <ProjectReference Include="..\..\ToolsManagement\ApiClientsManagement\ApiClientsManagement.csproj" />
   </ItemGroup>
 
 </Project>

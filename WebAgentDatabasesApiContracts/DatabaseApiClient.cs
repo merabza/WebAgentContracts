@@ -1,61 +1,42 @@
-﻿using System;
+﻿using DbTools.Models;
+using LanguageExt;
+using Microsoft.Extensions.Logging;
+using OneOf;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using ApiClientsManagement;
-using DbTools.ErrorModels;
-using DbTools.Models;
-using LanguageExt;
-using LibApiClientParameters;
-using LibDatabaseParameters;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SignalRContracts;
 using SystemToolsShared;
 using WebAgentDatabasesApiContracts.V1.Responses;
-using OneOf;
-using WebAgentDatabasesApiContracts.V1.Requests;
 
 namespace WebAgentDatabasesApiContracts;
 
-public sealed class DatabaseApiClient : ApiClient, IDatabaseApiClient
+public sealed class DatabaseApiClient : ApiClient
 {
     //public const string ApiName = "DatabaseApi";
 
-    private readonly ILogger _logger;
+    //private readonly ILogger _logger;
 
-    private DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory,
-        ApiClientSettingsDomain apiClientSettingsDomain) : base(logger, httpClientFactory,
-        apiClientSettingsDomain.Server, apiClientSettingsDomain.ApiKey, null, apiClientSettingsDomain.WithMessaging)
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
+        bool withMessaging) : base(logger, httpClientFactory, server, apiKey, null, withMessaging)
     {
-        _logger = logger;
+        //_logger = logger;
     }
+
+    //private DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory,
+    //    ApiClientSettingsDomain apiClientSettingsDomain) : base(logger, httpClientFactory,
+    //    apiClientSettingsDomain.Server, apiClientSettingsDomain.ApiKey, null, apiClientSettingsDomain.WithMessaging)
+    //{
+    //    _logger = logger;
+    //}
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public async Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(
-        DatabaseBackupParametersDomain databaseBackupParametersModel, string backupBaseName,
+    public async Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string bodyJsonData, string backupBaseName,
         CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(backupBaseName))
-        {
-            _logger.LogError(DbClientErrors.DatabaseNameIsNotSpecifiedForBackup.ErrorMessage);
-            return new[] { DbClientErrors.DatabaseNameIsNotSpecifiedForBackup };
-        }
-
-        var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
-        {
-            BackupNamePrefix = databaseBackupParametersModel.BackupNamePrefix,
-            DateMask = databaseBackupParametersModel.DateMask,
-            BackupFileExtension = databaseBackupParametersModel.BackupFileExtension,
-            BackupNameMiddlePart = databaseBackupParametersModel.BackupNameMiddlePart,
-            Compress = databaseBackupParametersModel.Compress,
-            Verify = databaseBackupParametersModel.Verify,
-            BackupType = databaseBackupParametersModel.BackupType,
-            DbServerSideBackupPath = databaseBackupParametersModel.DbServerSideBackupPath
-        });
-
         return await PostAsyncReturn<BackupFileParameters>($"databases/createbackup/{backupBaseName}",
             cancellationToken, bodyJsonData);
     }
@@ -75,19 +56,9 @@ public sealed class DatabaseApiClient : ApiClient, IDatabaseApiClient
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
-    public async Task<Option<Err[]>> RestoreDatabaseFromBackup(BackupFileParameters backupFileParameters,
-        string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
-        string databaseName, CancellationToken cancellationToken, string? restoreFromFolderPath = null)
+    public async Task<Option<Err[]>> RestoreDatabaseFromBackup(string bodyJsonData, string databaseName,
+        CancellationToken cancellationToken)
     {
-        var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
-        {
-            Prefix = backupFileParameters.Prefix,
-            Suffix = backupFileParameters.Suffix,
-            Name = backupFileParameters.Name,
-            DateMask = backupFileParameters.DateMask,
-            DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
-            DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
-        });
         return await PutAsync($"databases/restorebackup/{databaseName}", cancellationToken, bodyJsonData);
     }
 
@@ -106,16 +77,6 @@ public sealed class DatabaseApiClient : ApiClient, IDatabaseApiClient
         return await PostAsync(
             $"databases/executecommand{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
             cancellationToken);
-    }
-
-    public Task<OneOf<DbServerInfo, Err[]>> GetDatabaseServerInfo(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<OneOf<bool, Err[]>> IsServerLocal(CancellationToken cancellationToken)
-    {
-        return await Task.FromResult(false);
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
@@ -146,21 +107,21 @@ public sealed class DatabaseApiClient : ApiClient, IDatabaseApiClient
         throw new NotImplementedException();
     }
 
-    public static async Task<DatabaseApiClient?> Create(ILogger logger, IHttpClientFactory httpClientFactory,
-        ApiClientSettings? apiClientSettings,
-        IMessagesDataManager? messagesDataManager, string? userName, CancellationToken cancellationToken)
-    {
-        if (apiClientSettings is null || string.IsNullOrWhiteSpace(apiClientSettings.Server))
-        {
-            if (messagesDataManager is not null)
-                await messagesDataManager.SendMessage(userName, "cannot create DatabaseApiClient", cancellationToken);
-            logger.LogError("cannot create DatabaseApiClient");
-            return null;
-        }
+    //public static async Task<DatabaseApiClient?> Create(ILogger logger, IHttpClientFactory httpClientFactory,
+    //    ApiClientSettings? apiClientSettings,
+    //    IMessagesDataManager? messagesDataManager, string? userName, CancellationToken cancellationToken)
+    //{
+    //    if (apiClientSettings is null || string.IsNullOrWhiteSpace(apiClientSettings.Server))
+    //    {
+    //        if (messagesDataManager is not null)
+    //            await messagesDataManager.SendMessage(userName, "cannot create DatabaseApiClient", cancellationToken);
+    //        logger.LogError("cannot create DatabaseApiClient");
+    //        return null;
+    //    }
 
-        ApiClientSettingsDomain apiClientSettingsDomain = new(apiClientSettings.Server, apiClientSettings.ApiKey,
-            apiClientSettings.WithMessaging);
-        // ReSharper disable once DisposableConstructor
-        return new DatabaseApiClient(logger, httpClientFactory, apiClientSettingsDomain);
-    }
+    //    ApiClientSettingsDomain apiClientSettingsDomain = new(apiClientSettings.Server, apiClientSettings.ApiKey,
+    //        apiClientSettings.WithMessaging);
+    //    // ReSharper disable once DisposableConstructor
+    //    return new DatabaseApiClient(logger, httpClientFactory, apiClientSettingsDomain);
+    //}
 }
