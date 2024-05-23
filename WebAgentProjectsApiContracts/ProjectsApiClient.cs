@@ -7,9 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using SystemToolsShared;
 using WebAgentProjectsApiContracts.V1.Requests;
+using WebAgentProjectsApiContracts.V1.Routes;
 
 namespace WebAgentProjectsApiContracts;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
@@ -21,33 +23,41 @@ public sealed class ProjectsApiClient : ApiClient
     public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken)
     {
-        return await GetAsyncAsString($"projects/getappsettingsversion/{serverSidePort}/{apiVersionId}",
+        return await GetAsyncAsString(
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.GetAppSettingsVersionPrefix}/{serverSidePort}/{apiVersionId}",
             cancellationToken);
     }
 
     public async Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken)
     {
-        return await GetAsyncAsString($"projects/getversion/{serverSidePort}/{apiVersionId}", cancellationToken);
+        return await GetAsyncAsString(
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.GetVersionPrefix}/{serverSidePort}/{apiVersionId}",
+            cancellationToken);
     }
 
     public async Task<Option<Err[]>> RemoveProjectAndService(string projectName, string environmentName, bool isService,
         CancellationToken cancellationToken)
     {
-        return await DeleteAsync($"projects/removeprojectservice/{projectName}/{environmentName}/{isService}",
+        return await DeleteAsync(
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.RemoveProjectServicePrefix}/{projectName}/{environmentName}/{isService}",
             cancellationToken);
     }
 
     public async Task<Option<Err[]>> StartService(string projectName, string environmentName,
         CancellationToken cancellationToken)
     {
-        return await PostAsync($"projects/start/{projectName}/{environmentName}", cancellationToken);
+        return await PostAsync(
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StartPrefix}/{projectName}/{environmentName}",
+            cancellationToken);
     }
 
     public async Task<Option<Err[]>> StopService(string projectName, string environmentName,
         CancellationToken cancellationToken)
     {
-        return await PostAsync($"projects/stop/{projectName}/{environmentName}", cancellationToken);
+        return await PostAsync(
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StopPrefix}/{projectName}/{environmentName}",
+            cancellationToken);
     }
 
     public async Task<OneOf<string, Err[]>> InstallProgram(string projectName, string environmentName,
@@ -66,7 +76,8 @@ public sealed class ProjectsApiClient : ApiClient
 
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsyncReturnString("projects/update", cancellationToken, bodyJsonData);
+        return await PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update,
+            cancellationToken, bodyJsonData);
     }
 
     public async Task<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
@@ -90,7 +101,9 @@ public sealed class ProjectsApiClient : ApiClient
 
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsyncReturnString("projects/updateservice", cancellationToken, bodyJsonData);
+        return await PostAsyncReturnString(
+            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, cancellationToken,
+            bodyJsonData);
     }
 
     public async Task<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
@@ -107,6 +120,7 @@ public sealed class ProjectsApiClient : ApiClient
         };
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsync("projects/updatesettings", cancellationToken, bodyJsonData);
+        return await PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings,
+            cancellationToken, bodyJsonData);
     }
 }

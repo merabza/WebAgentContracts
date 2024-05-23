@@ -4,18 +4,29 @@ public static class ProjectsApiRoutes
 {
     private const string Root = "api";
     private const string Version = "v1";
-    private const string Base = Root + "/" + Version;
+    public const string ApiBase = Root + "/" + Version;
 
     public static class Projects
     {
-        public const string ProjectBase = Base + "/projects";
-        public const string UpdateSettings = "/updatesettings";
+        public const string ProjectBase = "/projects";
+
+        public const string GetAppSettingsVersionPrefix = "/getappsettingsversion";
+        public const string GetAppSettingsVersion = GetAppSettingsVersionPrefix + "/{serverSidePort}/{apiVersionId}";
+        
+        public const string GetVersionPrefix = "/getversion";
+        public const string GetVersion = GetVersionPrefix + "/{serverSidePort}/{apiVersionId}";
+        
+        public const string RemoveProjectServicePrefix = "/removeprojectservice";
+        public const string RemoveProjectService = RemoveProjectServicePrefix + "/{projectName}/{environmentName}/{isService}";
+
+        public const string StartPrefix = "/start";
+        public const string Start = StartPrefix + "/{projectName}/{environmentName}";
+
+        public const string StopPrefix = "/stop";
+        public const string Stop = StopPrefix + "/{projectName}/{environmentName}";
+
         public const string Update = "/update";
         public const string UpdateService = "/updateservice";
-        public const string StopService = "/stop/{projectName}/{environmentName}";
-        public const string StartService = "/start/{projectName}/{environmentName}";
-        public const string RemoveProjectService = "/removeprojectservice/{projectName}/{environmentName}/{isService}";
-        public const string GetAppSettingsVersion = "/getappsettingsversion/{serverSidePort}/{apiVersionId}";
-        public const string GetVersion = "/getversion/{serverSidePort}/{apiVersionId}";
+        public const string UpdateSettings = "/updatesettings";
     }
 }

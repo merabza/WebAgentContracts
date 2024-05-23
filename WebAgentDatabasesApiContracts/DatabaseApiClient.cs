@@ -1,17 +1,17 @@
-﻿using DbTools.Models;
+﻿using DbTools;
+using DbTools.Models;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OneOf;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SystemToolsShared;
 using WebAgentDatabasesApiContracts.V1.Requests;
 using WebAgentDatabasesApiContracts.V1.Responses;
-using DbTools;
+using WebAgentDatabasesApiContracts.V1.Routes;
 
 namespace WebAgentDatabasesApiContracts;
 
@@ -28,12 +28,13 @@ public sealed class DatabaseApiClient : ApiClient
         //_logger = logger;
     }
 
-    //private DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory,
-    //    ApiClientSettingsDomain apiClientSettingsDomain) : base(logger, httpClientFactory,
-    //    apiClientSettingsDomain.Server, apiClientSettingsDomain.ApiKey, null, apiClientSettingsDomain.WithMessaging)
-    //{
-    //    _logger = logger;
-    //}
+    //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
+    public async Task<Option<Err[]>> CheckRepairDatabase(string databaseName, CancellationToken cancellationToken)
+    {
+        return await PostAsync(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CheckRepairDatabasePrefix}/{databaseName}",
+            cancellationToken);
+    }
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
@@ -54,14 +55,25 @@ public sealed class DatabaseApiClient : ApiClient
         });
 
 
-        return await PostAsyncReturn<BackupFileParameters>($"databases/createbackup/{backupBaseName}",
+        return await PostAsyncReturn<BackupFileParameters>(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
             cancellationToken, bodyJsonData);
+    }
+
+    //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
+    public async Task<Option<Err[]>> ExecuteCommand(string executeQueryCommand, CancellationToken cancellationToken,
+        string? databaseName = null)
+    {
+        return await PostAsync(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
+            cancellationToken, executeQueryCommand);
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან
     public async Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(CancellationToken cancellationToken)
     {
-        return await GetAsyncReturn<List<DatabaseInfoModel>>("databases/getdatabasenames", cancellationToken);
+        return await GetAsyncReturn<List<DatabaseInfoModel>>(
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, იმის დასადგენად,
@@ -69,7 +81,9 @@ public sealed class DatabaseApiClient : ApiClient
     //რომ არსებულის გადანახვა არ მოხდეს.
     public async Task<OneOf<bool, Err[]>> IsDatabaseExists(string databaseName, CancellationToken cancellationToken)
     {
-        return await GetAsyncReturn<bool>($"databases/isdatabaseexists/{databaseName}", cancellationToken);
+        return await GetAsyncReturn<bool>(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.IsDatabaseExistsPrefix}/{databaseName}",
+            cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
@@ -83,37 +97,23 @@ public sealed class DatabaseApiClient : ApiClient
             DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
             DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
         });
-        return await PutAsync($"databases/restorebackup/{databaseName}", cancellationToken, bodyJsonData);
-    }
-
-    //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
-    public async Task<Option<Err[]>> CheckRepairDatabase(string databaseName, CancellationToken cancellationToken)
-    {
-        return await PostAsync(
-            $"databases/checkrepairdatabase{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
-            cancellationToken);
-    }
-
-    //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
-    public async Task<Option<Err[]>> ExecuteCommand(string executeQueryCommand, CancellationToken cancellationToken,
-        string? databaseName = null)
-    {
-        return await PostAsync(
-            $"databases/executecommand{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
-            cancellationToken);
+        return await PutAsync(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
+            cancellationToken, bodyJsonData);
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
     public async Task<Option<Err[]>> RecompileProcedures(string databaseName, CancellationToken cancellationToken)
     {
         return await PostAsync(
-            $"databases/recompileprocedures{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RecompileProceduresPrefix}/{databaseName}",
             cancellationToken);
     }
 
     public async Task<Option<Err[]>> TestConnection(string? databaseName, CancellationToken cancellationToken)
     {
-        return await GetAsync($"databases/testconnection{(databaseName == null ? "" : $"/{databaseName}")}",
+        return await GetAsync(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.TestConnectionPrefix}{(databaseName == null ? "" : $"/{databaseName}")}",
             cancellationToken);
     }
 
@@ -121,31 +121,7 @@ public sealed class DatabaseApiClient : ApiClient
     public async Task<Option<Err[]>> UpdateStatistics(string databaseName, CancellationToken cancellationToken)
     {
         return await PostAsync(
-            $"databases/updatestatistics{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.UpdateStatisticsPrefix}/{databaseName}",
             cancellationToken);
     }
-
-    public Task<Option<Err[]>> SetDefaultFolders(string defBackupFolder, string defDataFolder, string defLogFolder,
-        CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    //public static async Task<DatabaseApiClient?> Create(ILogger logger, IHttpClientFactory httpClientFactory,
-    //    ApiClientSettings? apiClientSettings,
-    //    IMessagesDataManager? messagesDataManager, string? userName, CancellationToken cancellationToken)
-    //{
-    //    if (apiClientSettings is null || string.IsNullOrWhiteSpace(apiClientSettings.Server))
-    //    {
-    //        if (messagesDataManager is not null)
-    //            await messagesDataManager.SendMessage(userName, "cannot create DatabaseApiClient", cancellationToken);
-    //        logger.LogError("cannot create DatabaseApiClient");
-    //        return null;
-    //    }
-
-    //    ApiClientSettingsDomain apiClientSettingsDomain = new(apiClientSettings.Server, apiClientSettings.ApiKey,
-    //        apiClientSettings.WithMessaging);
-    //    // ReSharper disable once DisposableConstructor
-    //    return new DatabaseApiClient(logger, httpClientFactory, apiClientSettingsDomain);
-    //}
 }
