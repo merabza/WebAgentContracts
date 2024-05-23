@@ -48,7 +48,7 @@ public sealed class ProjectsApiClient : ApiClient
         CancellationToken cancellationToken)
     {
         return await PostAsync(
-            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StartPrefix}/{projectName}/{environmentName}",
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StartServicePrefix}/{projectName}/{environmentName}",
             cancellationToken);
     }
 
@@ -56,7 +56,7 @@ public sealed class ProjectsApiClient : ApiClient
         CancellationToken cancellationToken)
     {
         return await PostAsync(
-            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StopPrefix}/{projectName}/{environmentName}",
+            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StopServicePrefix}/{projectName}/{environmentName}",
             cancellationToken);
     }
 

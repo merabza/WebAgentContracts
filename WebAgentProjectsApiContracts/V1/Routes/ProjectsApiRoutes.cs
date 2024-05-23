@@ -19,11 +19,11 @@ public static class ProjectsApiRoutes
         public const string RemoveProjectServicePrefix = "/removeprojectservice";
         public const string RemoveProjectService = RemoveProjectServicePrefix + "/{projectName}/{environmentName}/{isService}";
 
-        public const string StartPrefix = "/start";
-        public const string Start = StartPrefix + "/{projectName}/{environmentName}";
+        public const string StartServicePrefix = "/startservice";
+        public const string StartService = StartServicePrefix + "/{projectName}/{environmentName}";
 
-        public const string StopPrefix = "/stop";
-        public const string Stop = StopPrefix + "/{projectName}/{environmentName}";
+        public const string StopServicePrefix = "/stop";
+        public const string StopService = StopServicePrefix + "/{projectName}/{environmentName}";
 
         public const string Update = "/update";
         public const string UpdateService = "/updateservice";
