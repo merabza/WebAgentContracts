@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using SystemToolsShared;
+using WebAgentDatabasesApiContracts.V1.Requests;
 using WebAgentDatabasesApiContracts.V1.Responses;
+using DbTools;
 
 namespace WebAgentDatabasesApiContracts;
 
@@ -34,9 +37,23 @@ public sealed class DatabaseApiClient : ApiClient
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public async Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string bodyJsonData, string backupBaseName,
-        CancellationToken cancellationToken)
+    public async Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupNamePrefix, string dateMask,
+        string backupFileExtension, string backupNameMiddlePart, bool compress, bool verify, EBackupType backupType,
+        string? dbServerSideBackupPath, string backupBaseName, CancellationToken cancellationToken)
     {
+        var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
+        {
+            BackupNamePrefix = backupNamePrefix,
+            DateMask = dateMask,
+            BackupFileExtension = backupFileExtension,
+            BackupNameMiddlePart = backupNameMiddlePart,
+            Compress = compress,
+            Verify = verify,
+            BackupType = backupType,
+            DbServerSideBackupPath = dbServerSideBackupPath
+        });
+
+
         return await PostAsyncReturn<BackupFileParameters>($"databases/createbackup/{backupBaseName}",
             cancellationToken, bodyJsonData);
     }
@@ -56,9 +73,16 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
-    public async Task<Option<Err[]>> RestoreDatabaseFromBackup(string bodyJsonData, string databaseName,
-        CancellationToken cancellationToken)
+    public async Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
+        string dateMask, string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
+        string databaseName, CancellationToken cancellationToken)
     {
+        var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
+        {
+            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask,
+            DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
+            DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
+        });
         return await PutAsync($"databases/restorebackup/{databaseName}", cancellationToken, bodyJsonData);
     }
 
