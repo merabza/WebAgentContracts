@@ -10,12 +10,25 @@ using WebAgentProjectsApiContracts.V1.Requests;
 
 namespace WebAgentProjectsApiContracts;
 
-public sealed class ProjectsApiClientNew : ApiClient
+public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
-    public ProjectsApiClientNew(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
+    public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
         bool withMessaging) : base(logger, httpClientFactory, server, apiKey, null, withMessaging)
     {
+    }
+
+    public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
+        CancellationToken cancellationToken)
+    {
+        return await GetAsyncAsString($"projects/getappsettingsversion/{serverSidePort}/{apiVersionId}",
+            cancellationToken);
+    }
+
+    public async Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
+        CancellationToken cancellationToken)
+    {
+        return await GetAsyncAsString($"projects/getversion/{serverSidePort}/{apiVersionId}", cancellationToken);
     }
 
     public async Task<Option<Err[]>> RemoveProjectAndService(string projectName, string environmentName, bool isService,
@@ -25,33 +38,16 @@ public sealed class ProjectsApiClientNew : ApiClient
             cancellationToken);
     }
 
-    public async Task<Option<Err[]>> StopService(string projectName, string environmentName,
-        CancellationToken cancellationToken)
-    {
-        return await PostAsync($"projects/stop/{projectName}/{environmentName}", cancellationToken);
-    }
-
     public async Task<Option<Err[]>> StartService(string projectName, string environmentName,
         CancellationToken cancellationToken)
     {
         return await PostAsync($"projects/start/{projectName}/{environmentName}", cancellationToken);
     }
 
-    public async Task<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
-        string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension,
+    public async Task<Option<Err[]>> StopService(string projectName, string environmentName,
         CancellationToken cancellationToken)
     {
-        var body = new UpdateSettingsRequest
-        {
-            ProjectName = projectName,
-            EnvironmentName = environmentName,
-            AppSettingsFileName = appSettingsFileName,
-            ParametersFileDateMask = parametersFileDateMask,
-            ParametersFileExtension = parametersFileExtension
-        };
-        var bodyJsonData = JsonConvert.SerializeObject(body);
-
-        return await PostAsync("projects/updatesettings", cancellationToken, bodyJsonData);
+        return await PostAsync($"projects/stop/{projectName}/{environmentName}", cancellationToken);
     }
 
     public async Task<OneOf<string, Err[]>> InstallProgram(string projectName, string environmentName,
@@ -97,16 +93,20 @@ public sealed class ProjectsApiClientNew : ApiClient
         return await PostAsyncReturnString("projects/updateservice", cancellationToken, bodyJsonData);
     }
 
-    public async Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
+    public async Task<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
+        string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension,
         CancellationToken cancellationToken)
     {
-        return await GetAsyncAsString($"projects/getversion/{serverSidePort}/{apiVersionId}", cancellationToken);
-    }
+        var body = new UpdateSettingsRequest
+        {
+            ProjectName = projectName,
+            EnvironmentName = environmentName,
+            AppSettingsFileName = appSettingsFileName,
+            ParametersFileDateMask = parametersFileDateMask,
+            ParametersFileExtension = parametersFileExtension
+        };
+        var bodyJsonData = JsonConvert.SerializeObject(body);
 
-    public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
-        CancellationToken cancellationToken)
-    {
-        return await GetAsyncAsString($"projects/getappsettingsversion/{serverSidePort}/{apiVersionId}",
-            cancellationToken);
+        return await PostAsync("projects/updatesettings", cancellationToken, bodyJsonData);
     }
 }
