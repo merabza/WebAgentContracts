@@ -12,12 +12,14 @@ public static class ProjectsApiRoutes
 
         public const string GetAppSettingsVersionPrefix = "/getappsettingsversion";
         public const string GetAppSettingsVersion = GetAppSettingsVersionPrefix + "/{serverSidePort}/{apiVersionId}";
-        
+
         public const string GetVersionPrefix = "/getversion";
         public const string GetVersion = GetVersionPrefix + "/{serverSidePort}/{apiVersionId}";
-        
+
         public const string RemoveProjectServicePrefix = "/removeprojectservice";
-        public const string RemoveProjectService = RemoveProjectServicePrefix + "/{projectName}/{environmentName}/{isService}";
+
+        public const string RemoveProjectService =
+            RemoveProjectServicePrefix + "/{projectName}/{environmentName}/{isService}";
 
         public const string StartServicePrefix = "/startservice";
         public const string StartService = StartServicePrefix + "/{projectName}/{environmentName}";
