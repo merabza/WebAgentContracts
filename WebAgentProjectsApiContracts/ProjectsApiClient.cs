@@ -5,6 +5,7 @@ using OneOf;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using ApiContracts;
 using SystemToolsShared;
 using WebAgentProjectsApiContracts.V1.Requests;
 using WebAgentProjectsApiContracts.V1.Routes;
@@ -15,8 +16,8 @@ namespace WebAgentProjectsApiContracts;
 public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
-    public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool withMessaging) : base(logger, httpClientFactory, server, apiKey, null, withMessaging)
+    public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
+        base(logger, httpClientFactory, server, apiKey, null, null)
     {
     }
 
