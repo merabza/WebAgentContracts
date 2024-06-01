@@ -24,7 +24,7 @@ public sealed class DatabaseApiClient : ApiClient
 
     // ReSharper disable once ConvertToPrimaryConstructor
     public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
-        base(logger, httpClientFactory, server, apiKey, null, null)
+        base(logger, httpClientFactory, server, apiKey, null, new StingMessageHubClient(server, apiKey))
     {
         //_logger = logger;
     }

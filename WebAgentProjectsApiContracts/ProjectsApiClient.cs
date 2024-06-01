@@ -17,7 +17,7 @@ public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
     public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
-        base(logger, httpClientFactory, server, apiKey, null, null)
+        base(logger, httpClientFactory, server, apiKey, null, new StingMessageHubClient(server, apiKey))
     {
     }
 
