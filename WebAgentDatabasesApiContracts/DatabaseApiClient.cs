@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using ApiContracts;
 using SystemToolsShared;
 using WebAgentDatabasesApiContracts.V1.Requests;
 using WebAgentDatabasesApiContracts.V1.Responses;
@@ -22,8 +23,8 @@ public sealed class DatabaseApiClient : ApiClient
     //private readonly ILogger _logger;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool withMessaging) : base(logger, httpClientFactory, server, apiKey, null, withMessaging)
+    public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
+        base(logger, httpClientFactory, server, apiKey, null, null)
     {
         //_logger = logger;
     }
