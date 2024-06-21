@@ -16,9 +16,11 @@ namespace WebAgentProjectsApiContracts;
 public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
-    public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
-        base(logger, httpClientFactory, server, apiKey, null, new StingMessageHubClient(server, apiKey))
+    public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
+        new StingMessageHubClient(server, apiKey), useConsole)
     {
+
     }
 
     public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,

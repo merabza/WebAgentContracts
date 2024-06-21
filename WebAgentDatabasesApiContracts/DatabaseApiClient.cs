@@ -18,15 +18,13 @@ namespace WebAgentDatabasesApiContracts;
 
 public sealed class DatabaseApiClient : ApiClient
 {
-    //public const string ApiName = "DatabaseApi";
-
-    //private readonly ILogger _logger;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey) :
-        base(logger, httpClientFactory, server, apiKey, null, new StingMessageHubClient(server, apiKey))
+    public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
+        new StingMessageHubClient(server, apiKey), useConsole)
     {
-        //_logger = logger;
+
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
