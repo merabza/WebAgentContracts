@@ -64,7 +64,7 @@ public sealed class DatabaseApiClient : ApiClient
         string? databaseName = null)
     {
         return await PostAsync(
-            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? "" : $"/{databaseName}")}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? string.Empty : $"/{databaseName}")}",
             cancellationToken, executeQueryCommand);
     }
 
@@ -112,7 +112,7 @@ public sealed class DatabaseApiClient : ApiClient
     public async Task<Option<Err[]>> TestConnection(string? databaseName, CancellationToken cancellationToken)
     {
         return await GetAsync(
-            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.TestConnectionPrefix}{(databaseName == null ? "" : $"/{databaseName}")}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.TestConnectionPrefix}{(databaseName == null ? string.Empty : $"/{databaseName}")}",
             cancellationToken);
     }
 
