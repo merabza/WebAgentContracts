@@ -1,11 +1,11 @@
-﻿using ApiContracts;
+﻿using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using ApiContracts;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OneOf;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using SystemToolsShared.Errors;
 using WebAgentProjectsApiContracts.V1.Requests;
 using WebAgentProjectsApiContracts.V1.Routes;
@@ -20,7 +20,6 @@ public sealed class ProjectsApiClient : ApiClient
         bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
         new StingMessageHubClient(server, apiKey), useConsole)
     {
-
     }
 
     public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,

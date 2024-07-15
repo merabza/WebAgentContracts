@@ -18,13 +18,11 @@ namespace WebAgentDatabasesApiContracts;
 
 public sealed class DatabaseApiClient : ApiClient
 {
-
     // ReSharper disable once ConvertToPrimaryConstructor
     public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
         bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
         new StingMessageHubClient(server, apiKey), useConsole)
     {
-
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
