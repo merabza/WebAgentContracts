@@ -17,9 +17,10 @@ public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
     public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
-        new StingMessageHubClient(server, apiKey), useConsole)
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
+        useConsole)
     {
+
     }
 
     public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
@@ -79,7 +80,7 @@ public sealed class ProjectsApiClient : ApiClient
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
         return await PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update,
-            cancellationToken, bodyJsonData);
+            bodyJsonData, cancellationToken);
     }
 
     public async Task<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
@@ -104,8 +105,8 @@ public sealed class ProjectsApiClient : ApiClient
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
         return await PostAsyncReturnString(
-            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, cancellationToken,
-            bodyJsonData);
+            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, bodyJsonData,
+            cancellationToken);
     }
 
     public async Task<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
@@ -123,6 +124,6 @@ public sealed class ProjectsApiClient : ApiClient
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
         return await PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings,
-            cancellationToken, bodyJsonData);
+            bodyJsonData, cancellationToken);
     }
 }

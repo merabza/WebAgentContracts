@@ -20,9 +20,10 @@ public sealed class DatabaseApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
     public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool useConsole) : base(logger, httpClientFactory, server, apiKey, null,
-        new StingMessageHubClient(server, apiKey), useConsole)
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
+        useConsole)
     {
+
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
@@ -54,7 +55,7 @@ public sealed class DatabaseApiClient : ApiClient
 
         return await PostAsyncReturn<BackupFileParameters>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
-            cancellationToken, bodyJsonData);
+            bodyJsonData, cancellationToken);
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
@@ -63,7 +64,7 @@ public sealed class DatabaseApiClient : ApiClient
     {
         return await PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? string.Empty : $"/{databaseName}")}",
-            cancellationToken, executeQueryCommand);
+            executeQueryCommand, cancellationToken);
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან
@@ -96,7 +97,7 @@ public sealed class DatabaseApiClient : ApiClient
         });
         return await PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
-            cancellationToken, bodyJsonData);
+            bodyJsonData, cancellationToken);
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
