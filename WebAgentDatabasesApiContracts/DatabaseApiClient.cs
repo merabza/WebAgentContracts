@@ -23,7 +23,6 @@ public sealed class DatabaseApiClient : ApiClient
         bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
         useConsole)
     {
-
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
