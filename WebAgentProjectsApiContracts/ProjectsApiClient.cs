@@ -20,7 +20,6 @@ public sealed class ProjectsApiClient : ApiClient
         bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
         useConsole)
     {
-
     }
 
     public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
