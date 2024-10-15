@@ -20,7 +20,7 @@ public sealed class DatabaseApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
     public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StringMessageHubClient(server, apiKey),
         useConsole)
     {
     }
@@ -51,10 +51,9 @@ public sealed class DatabaseApiClient : ApiClient
             DbServerSideBackupPath = dbServerSideBackupPath
         });
 
-
         return await PostAsyncReturn<BackupFileParameters>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
-            bodyJsonData, cancellationToken);
+            true, bodyJsonData, cancellationToken);
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
@@ -63,7 +62,7 @@ public sealed class DatabaseApiClient : ApiClient
     {
         return await PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? string.Empty : $"/{databaseName}")}",
-            executeQueryCommand, cancellationToken);
+            true, executeQueryCommand, cancellationToken);
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან

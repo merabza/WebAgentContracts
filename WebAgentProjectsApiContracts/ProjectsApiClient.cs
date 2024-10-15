@@ -17,7 +17,7 @@ public sealed class ProjectsApiClient : ApiClient
 {
     // ReSharper disable once ConvertToPrimaryConstructor
     public ProjectsApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
-        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StingMessageHubClient(server, apiKey),
+        bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StringMessageHubClient(server, apiKey),
         useConsole)
     {
     }
@@ -79,7 +79,7 @@ public sealed class ProjectsApiClient : ApiClient
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
         return await PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update,
-            bodyJsonData, cancellationToken);
+            true, bodyJsonData, cancellationToken);
     }
 
     public async Task<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
@@ -104,7 +104,7 @@ public sealed class ProjectsApiClient : ApiClient
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
         return await PostAsyncReturnString(
-            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, bodyJsonData,
+            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, true, bodyJsonData,
             cancellationToken);
     }
 
@@ -122,7 +122,7 @@ public sealed class ProjectsApiClient : ApiClient
         };
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings,
+        return await PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings, true,
             bodyJsonData, cancellationToken);
     }
 }
