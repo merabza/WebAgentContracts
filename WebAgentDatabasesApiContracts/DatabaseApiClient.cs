@@ -70,7 +70,8 @@ public sealed class DatabaseApiClient : ApiClient
     public async Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(CancellationToken cancellationToken)
     {
         return await GetAsyncReturn<List<DatabaseInfoModel>>(
-            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, cancellationToken);
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, false,
+            cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, იმის დასადგენად,
@@ -80,7 +81,7 @@ public sealed class DatabaseApiClient : ApiClient
     {
         return await GetAsyncReturn<bool>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.IsDatabaseExistsPrefix}/{databaseName}",
-            cancellationToken);
+            false, cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
