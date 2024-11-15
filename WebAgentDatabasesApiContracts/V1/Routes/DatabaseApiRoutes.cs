@@ -27,7 +27,7 @@ public static class DatabaseApiRoutes
 
         //// GET api/databases/isdatabaseexists/{databaseName}
         public const string IsDatabaseExistsPrefix = "/isdatabaseexists";
-        public const string IsDatabaseExists = "/{databaseName}";
+        public const string IsDatabaseExists = IsDatabaseExistsPrefix + "/{databaseName}";
 
         //// PUT api/databases/restorebackup/{databaseName}
         public const string RestoreBackupPrefix = "/restorebackup";
