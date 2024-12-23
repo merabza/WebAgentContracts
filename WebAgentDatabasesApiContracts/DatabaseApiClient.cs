@@ -27,17 +27,17 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
-    public async Task<Option<Err[]>> CheckRepairDatabase(string databaseName,
+    public ValueTask<Option<Err[]>> CheckRepairDatabase(string databaseName,
         CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
+        return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CheckRepairDatabasePrefix}/{databaseName}",
             cancellationToken);
     }
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public async Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupNamePrefix, string dateMask,
+    public Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupNamePrefix, string dateMask,
         string backupFileExtension, string backupNameMiddlePart, bool compress, bool verify, EBackupType backupType,
         string? dbServerSideBackupPath, string backupBaseName, CancellationToken cancellationToken = default)
     {
@@ -53,25 +53,24 @@ public sealed class DatabaseApiClient : ApiClient
             DbServerSideBackupPath = dbServerSideBackupPath
         });
 
-        return await PostAsyncReturn<BackupFileParameters>(
+        return PostAsyncReturn<BackupFileParameters>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
             true, bodyJsonData, cancellationToken);
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
-    public async Task<Option<Err[]>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
+    public ValueTask<Option<Err[]>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
         CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
+        return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ExecuteCommandPrefix}{(string.IsNullOrWhiteSpace(databaseName) ? string.Empty : $"/{databaseName}")}",
             true, executeQueryCommand, cancellationToken);
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან
-    public async Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(
-        CancellationToken cancellationToken = default)
+    public Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(CancellationToken cancellationToken = default)
     {
-        return await GetAsyncReturn<List<DatabaseInfoModel>>(
+        return GetAsyncReturn<List<DatabaseInfoModel>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, false,
             cancellationToken);
     }
@@ -79,17 +78,16 @@ public sealed class DatabaseApiClient : ApiClient
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, იმის დასადგენად,
     //მიზნის ბაზა უკვე არსებობს თუ არა, რომ არ მოხდეს ამ ბაზის ისე წაშლა ახლით,
     //რომ არსებულის გადანახვა არ მოხდეს.
-    public async Task<OneOf<bool, Err[]>> IsDatabaseExists(string databaseName,
-        CancellationToken cancellationToken = default)
+    public Task<OneOf<bool, Err[]>> IsDatabaseExists(string databaseName, CancellationToken cancellationToken = default)
     {
-        return await GetAsyncReturn<bool>(
+        return GetAsyncReturn<bool>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.IsDatabaseExistsPrefix}/{databaseName}",
             false, cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
-    public async Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
-        string dateMask, string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
+    public Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name, string dateMask,
+        string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
         string databaseName, CancellationToken cancellationToken = default)
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
@@ -98,32 +96,31 @@ public sealed class DatabaseApiClient : ApiClient
             DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
             DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
         });
-        return await PutAsync(
+        return PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
             bodyJsonData, cancellationToken);
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
-    public async Task<Option<Err[]>> RecompileProcedures(string databaseName,
+    public ValueTask<Option<Err[]>> RecompileProcedures(string databaseName,
         CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
+        return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RecompileProceduresPrefix}/{databaseName}",
             cancellationToken);
     }
 
-    public async Task<Option<Err[]>> TestConnection(string? databaseName, CancellationToken cancellationToken = default)
+    public Task<Option<Err[]>> TestConnection(string? databaseName, CancellationToken cancellationToken = default)
     {
-        return await GetAsync(
+        return GetAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.TestConnectionPrefix}{(databaseName == null ? string.Empty : $"/{databaseName}")}",
             cancellationToken);
     }
 
     //მონაცემთა ბაზაში არსებული სტატისტიკების დაანგარიშება
-    public async Task<Option<Err[]>> UpdateStatistics(string databaseName,
-        CancellationToken cancellationToken = default)
+    public ValueTask<Option<Err[]>> UpdateStatistics(string databaseName, CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
+        return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.UpdateStatisticsPrefix}/{databaseName}",
             cancellationToken);
     }

@@ -23,47 +23,41 @@ public sealed class ProjectsApiClient : ApiClient
     {
     }
 
-    public async Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
-        return await GetAsyncAsString(
+        return GetAsyncAsString(
             $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.GetAppSettingsVersionPrefix}/{serverSidePort}/{apiVersionId}",
             cancellationToken);
     }
 
-    public async Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
-        return await GetAsyncAsString(
+        return GetAsyncAsString(
             $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.GetVersionPrefix}/{serverSidePort}/{apiVersionId}",
             cancellationToken);
     }
 
-    public async Task<Option<Err[]>> RemoveProjectAndService(string projectName, string environmentName, bool isService,
+    public ValueTask<Option<Err[]>> RemoveProjectAndService(string projectName, string environmentName, bool isService,
         CancellationToken cancellationToken = default)
     {
-        return await DeleteAsync(
+        return DeleteAsync(
             $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.RemoveProjectServicePrefix}/{projectName}/{environmentName}/{isService}",
             cancellationToken);
     }
 
-    public async Task<Option<Err[]>> StartService(string projectName, string environmentName,
-        CancellationToken cancellationToken = default)
+    public ValueTask<Option<Err[]>> StartService(string projectName, string environmentName, CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
-            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StartServicePrefix}/{projectName}/{environmentName}",
-            cancellationToken);
+        return PostAsync($"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StartServicePrefix}/{projectName}/{environmentName}", cancellationToken);
     }
 
-    public async Task<Option<Err[]>> StopService(string projectName, string environmentName,
-        CancellationToken cancellationToken = default)
+    public ValueTask<Option<Err[]>> StopService(string projectName, string environmentName, CancellationToken cancellationToken = default)
     {
-        return await PostAsync(
-            $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StopServicePrefix}/{projectName}/{environmentName}",
-            cancellationToken);
+        return PostAsync($"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.StopServicePrefix}/{projectName}/{environmentName}", cancellationToken);
     }
 
-    public async Task<OneOf<string, Err[]>> InstallProgram(string projectName, string environmentName,
+    public ValueTask<OneOf<string, Err[]>> InstallProgram(string projectName, string environmentName,
         string programArchiveDateMask, string programArchiveExtension, string parametersFileDateMask,
         string parametersFileExtension, CancellationToken cancellationToken = default)
     {
@@ -79,11 +73,11 @@ public sealed class ProjectsApiClient : ApiClient
 
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update,
+        return PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update,
             true, bodyJsonData, cancellationToken);
     }
 
-    public async Task<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
+    public ValueTask<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
         string serviceUserName, string appSettingsFileName, string programArchiveDateMask,
         string programArchiveExtension, string parametersFileDateMask, string parametersFileExtension,
         string? serviceDescriptionSignature, string? projectDescription, CancellationToken cancellationToken = default)
@@ -104,14 +98,11 @@ public sealed class ProjectsApiClient : ApiClient
 
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsyncReturnString(
-            ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService, true, bodyJsonData,
-            cancellationToken);
+        return PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService,
+            true, bodyJsonData, cancellationToken);
     }
 
-    public async Task<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
-        string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension,
-        CancellationToken cancellationToken = default)
+    public ValueTask<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName, string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension, CancellationToken cancellationToken = default)
     {
         var body = new UpdateSettingsRequest
         {
@@ -123,7 +114,6 @@ public sealed class ProjectsApiClient : ApiClient
         };
         var bodyJsonData = JsonConvert.SerializeObject(body);
 
-        return await PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings, true,
-            bodyJsonData, cancellationToken);
+        return PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings, true, bodyJsonData, cancellationToken);
     }
 }
