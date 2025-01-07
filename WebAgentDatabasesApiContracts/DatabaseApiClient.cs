@@ -96,10 +96,7 @@ string backupNamePrefix, string dateMask,
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
-            Prefix = prefix,
-            Suffix = suffix,
-            Name = name,
-            DateMask = dateMask,
+            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask
             //DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
             //DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
         });
