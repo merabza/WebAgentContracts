@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using ApiContracts;
-using DbTools;
 using DbTools.Models;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -35,27 +34,32 @@ public sealed class DatabaseApiClient : ApiClient
             cancellationToken);
     }
 
+
+    /*
+string backupNamePrefix, string dateMask,
+       string backupFileExtension, string backupNameMiddlePart, bool compress, bool verify, EBackupType backupType,
+       string? dbServerSideBackupPath,      */
+
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupNamePrefix, string dateMask,
-        string backupFileExtension, string backupNameMiddlePart, bool compress, bool verify, EBackupType backupType,
-        string? dbServerSideBackupPath, string backupBaseName, CancellationToken cancellationToken = default)
+    public Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupBaseName,
+        CancellationToken cancellationToken = default)
     {
-        var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
-        {
-            BackupNamePrefix = backupNamePrefix,
-            DateMask = dateMask,
-            BackupFileExtension = backupFileExtension,
-            BackupNameMiddlePart = backupNameMiddlePart,
-            Compress = compress,
-            Verify = verify,
-            BackupType = backupType,
-            DbServerSideBackupPath = dbServerSideBackupPath
-        });
-
+        //var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
+        //{
+        //    BackupNamePrefix = backupNamePrefix,
+        //    DateMask = dateMask,
+        //    BackupFileExtension = backupFileExtension,
+        //    BackupNameMiddlePart = backupNameMiddlePart,
+        //    Compress = compress,
+        //    Verify = verify,
+        //    BackupType = backupType,
+        //    DbServerSideBackupPath = dbServerSideBackupPath
+        //});
+        //bodyJsonData, 
         return PostAsyncReturn<BackupFileParameters>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
-            true, bodyJsonData, cancellationToken);
+            true, cancellationToken);
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
@@ -87,14 +91,17 @@ public sealed class DatabaseApiClient : ApiClient
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
     public Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name, string dateMask,
-        string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
+        //string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
         string databaseName, CancellationToken cancellationToken = default)
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
-            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask,
-            DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
-            DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
+            Prefix = prefix,
+            Suffix = suffix,
+            Name = name,
+            DateMask = dateMask,
+            //DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
+            //DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
         });
         return PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
