@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApiContracts;
 using DbTools.Models;
 using LanguageExt;
+using LibDatabaseParameters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OneOf;
@@ -126,6 +127,14 @@ string backupNamePrefix, string dateMask,
     {
         return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.UpdateStatisticsPrefix}/{databaseName}",
+            cancellationToken);
+    }
+
+    public Task<OneOf<Dictionary<string, DatabaseFoldersSet>, Err[]>> GetDatabaseFoldersSets(
+        CancellationToken cancellationToken)
+    {
+        return GetAsyncReturn<Dictionary<string, DatabaseFoldersSet>>(
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSets, false,
             cancellationToken);
     }
 }

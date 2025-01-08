@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DatabaseTools\DbTools\DbTools.csproj" />
+    <ProjectReference Include="..\..\ParametersManagement\LibDatabaseParameters\LibDatabaseParameters.csproj" />
     <ProjectReference Include="..\..\SystemTools\ApiContracts\ApiContracts.csproj" />
     <ProjectReference Include="..\..\SystemTools\StringMessagesApiContracts\StringMessagesApiContracts.csproj" />
     <ProjectReference Include="..\..\SystemTools\SystemToolsShared\SystemToolsShared.csproj" />
