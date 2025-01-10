@@ -28,6 +28,9 @@ public static class DatabaseApiRoutes
         //// GET api/databases/getdatabasefolderssets
         public const string GetDatabaseFoldersSets = "/getdatabasefolderssets";
 
+        //// GET api/databases/getdatabaseconnectionnames
+        public const string GetDatabaseConnectionNames = "/getdatabaseconnectionnames";
+
         //// GET api/databases/isdatabaseexists/{databaseName}
         public const string IsDatabaseExistsPrefix = "/isdatabaseexists";
         public const string IsDatabaseExists = IsDatabaseExistsPrefix + "/{databaseName}";

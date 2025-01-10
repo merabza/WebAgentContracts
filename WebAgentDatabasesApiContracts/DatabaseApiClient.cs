@@ -136,4 +136,11 @@ string backupNamePrefix, string dateMask,
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSets, false,
             cancellationToken);
     }
+
+    public Task<OneOf<List<string>, Err[]>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
+    {
+        return GetAsyncReturn<List<string>>(
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, false,
+            cancellationToken);
+    }
 }
