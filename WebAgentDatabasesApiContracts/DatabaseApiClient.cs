@@ -91,14 +91,15 @@ string backupNamePrefix, string dateMask,
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
     public Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name, string dateMask,
-        //string? destinationDbServerSideDataFolderPath, string? destinationDbServerSideLogFolderPath,
-        string databaseName, CancellationToken cancellationToken = default)
+        string databaseName, string dbServerFoldersSetName, CancellationToken cancellationToken = default)
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
-            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask
-            //DestinationDbServerSideDataFolderPath = destinationDbServerSideDataFolderPath,
-            //DestinationDbServerSideLogFolderPath = destinationDbServerSideLogFolderPath
+            Prefix = prefix,
+            Suffix = suffix,
+            Name = name,
+            DateMask = dateMask,
+            DbServerFoldersSetName = dbServerFoldersSetName
         });
         return PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
