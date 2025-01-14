@@ -16,7 +16,7 @@ public static class DatabaseApiRoutes
 
         //// POST api/databases/createbackup/{databaseName}
         public const string CreateBackupPrefix = "/createbackup";
-        public const string CreateBackup = CreateBackupPrefix + "/{databaseName}";
+        public const string CreateBackup = CreateBackupPrefix + "/{databaseName}/{dbServerFoldersSetName}";
 
         //// POST api/databases/executecommand/{databaseName}
         public const string ExecuteCommandPrefix = "/executecommand";
@@ -37,7 +37,7 @@ public static class DatabaseApiRoutes
 
         //// PUT api/databases/restorebackup/{databaseName}
         public const string RestoreBackupPrefix = "/restorebackup";
-        public const string RestoreBackup = RestoreBackupPrefix + "/{databaseName}";
+        public const string RestoreBackup = RestoreBackupPrefix + "/{databaseName}/{dbServerFoldersSetName}";
 
         //// POST api/databases/recompileprocedures/{databaseName}
         public const string RecompileProceduresPrefix = "/recompileprocedures";
