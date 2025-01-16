@@ -134,7 +134,7 @@ string backupNamePrefix, string dateMask,
         CancellationToken cancellationToken)
     {
         return GetAsyncReturn<Dictionary<string, DatabaseFoldersSet>>(
-            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSets, false,
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSetNames, false,
             cancellationToken);
     }
 

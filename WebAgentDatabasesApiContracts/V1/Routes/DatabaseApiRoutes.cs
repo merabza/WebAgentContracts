@@ -25,8 +25,8 @@ public static class DatabaseApiRoutes
         //// GET api/databases/getdatabasenames
         public const string GetDatabaseNames = "/getdatabasenames";
 
-        //// GET api/databases/getdatabasefolderssets
-        public const string GetDatabaseFoldersSets = "/getdatabasefolderssets";
+        //// GET api/databases/getdatabasefolderssetnames
+        public const string GetDatabaseFoldersSetNames = "/getdatabasefolderssetnames";
 
         //// GET api/databases/getdatabaseconnectionnames
         public const string GetDatabaseConnectionNames = "/getdatabaseconnectionnames";
