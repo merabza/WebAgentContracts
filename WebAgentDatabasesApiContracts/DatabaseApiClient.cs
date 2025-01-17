@@ -26,7 +26,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
-    public ValueTask<Option<Err[]>> CheckRepairDatabase(string databaseName,
+    public ValueTask<Option<IEnumerable<Err>>> CheckRepairDatabase(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -42,7 +42,7 @@ string backupNamePrefix, string dateMask,
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(string backupBaseName,
+    public Task<OneOf<BackupFileParameters, IEnumerable<Err>>> CreateBackup(string backupBaseName,
         CancellationToken cancellationToken = default)
     {
         //var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
@@ -63,7 +63,7 @@ string backupNamePrefix, string dateMask,
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
-    public ValueTask<Option<Err[]>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
+    public ValueTask<Option<IEnumerable<Err>>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -72,7 +72,8 @@ string backupNamePrefix, string dateMask,
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან
-    public Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(CancellationToken cancellationToken = default)
+    public Task<OneOf<List<DatabaseInfoModel>, IEnumerable<Err>>> GetDatabaseNames(
+        CancellationToken cancellationToken = default)
     {
         return GetAsyncReturn<List<DatabaseInfoModel>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, false,
@@ -82,7 +83,8 @@ string backupNamePrefix, string dateMask,
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, იმის დასადგენად,
     //მიზნის ბაზა უკვე არსებობს თუ არა, რომ არ მოხდეს ამ ბაზის ისე წაშლა ახლით,
     //რომ არსებულის გადანახვა არ მოხდეს.
-    public Task<OneOf<bool, Err[]>> IsDatabaseExists(string databaseName, CancellationToken cancellationToken = default)
+    public Task<OneOf<bool, IEnumerable<Err>>> IsDatabaseExists(string databaseName,
+        CancellationToken cancellationToken = default)
     {
         return GetAsyncReturn<bool>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.IsDatabaseExistsPrefix}/{databaseName}",
@@ -90,8 +92,9 @@ string backupNamePrefix, string dateMask,
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
-    public Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name, string dateMask,
-        string databaseName, string dbServerFoldersSetName, CancellationToken cancellationToken = default)
+    public Task<Option<IEnumerable<Err>>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
+        string dateMask, string databaseName, string dbServerFoldersSetName,
+        CancellationToken cancellationToken = default)
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
@@ -107,7 +110,7 @@ string backupNamePrefix, string dateMask,
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
-    public ValueTask<Option<Err[]>> RecompileProcedures(string databaseName,
+    public ValueTask<Option<IEnumerable<Err>>> RecompileProcedures(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -115,7 +118,8 @@ string backupNamePrefix, string dateMask,
             cancellationToken);
     }
 
-    public Task<Option<Err[]>> TestConnection(string? databaseName, CancellationToken cancellationToken = default)
+    public Task<Option<IEnumerable<Err>>> TestConnection(string? databaseName,
+        CancellationToken cancellationToken = default)
     {
         return GetAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.TestConnectionPrefix}{(databaseName == null ? string.Empty : $"/{databaseName}")}",
@@ -123,14 +127,15 @@ string backupNamePrefix, string dateMask,
     }
 
     //მონაცემთა ბაზაში არსებული სტატისტიკების დაანგარიშება
-    public ValueTask<Option<Err[]>> UpdateStatistics(string databaseName, CancellationToken cancellationToken = default)
+    public ValueTask<Option<IEnumerable<Err>>> UpdateStatistics(string databaseName,
+        CancellationToken cancellationToken = default)
     {
         return PostAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.UpdateStatisticsPrefix}/{databaseName}",
             cancellationToken);
     }
 
-    public Task<OneOf<Dictionary<string, DatabaseFoldersSet>, Err[]>> GetDatabaseFoldersSets(
+    public Task<OneOf<Dictionary<string, DatabaseFoldersSet>, IEnumerable<Err>>> GetDatabaseFoldersSets(
         CancellationToken cancellationToken)
     {
         return GetAsyncReturn<Dictionary<string, DatabaseFoldersSet>>(
@@ -138,7 +143,7 @@ string backupNamePrefix, string dateMask,
             cancellationToken);
     }
 
-    public Task<OneOf<List<string>, Err[]>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
+    public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
     {
         return GetAsyncReturn<List<string>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, false,
