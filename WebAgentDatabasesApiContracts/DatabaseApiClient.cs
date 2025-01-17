@@ -135,10 +135,9 @@ string backupNamePrefix, string dateMask,
             cancellationToken);
     }
 
-    public Task<OneOf<Dictionary<string, DatabaseFoldersSet>, IEnumerable<Err>>> GetDatabaseFoldersSets(
-        CancellationToken cancellationToken)
+    public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseFoldersSetNames(CancellationToken cancellationToken)
     {
-        return GetAsyncReturn<Dictionary<string, DatabaseFoldersSet>>(
+        return GetAsyncReturn<List<string>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSetNames, false,
             cancellationToken);
     }
