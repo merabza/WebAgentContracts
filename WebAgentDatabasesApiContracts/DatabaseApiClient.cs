@@ -34,31 +34,13 @@ public sealed class DatabaseApiClient : ApiClient
             cancellationToken);
     }
 
-
-    /*
-string backupNamePrefix, string dateMask,
-       string backupFileExtension, string backupNameMiddlePart, bool compress, bool verify, EBackupType backupType,
-       string? dbServerSideBackupPath,      */
-
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
     public Task<OneOf<BackupFileParameters, IEnumerable<Err>>> CreateBackup(string backupBaseName,
-        CancellationToken cancellationToken = default)
+        string dbServerFoldersSetName, CancellationToken cancellationToken = default)
     {
-        //var bodyJsonData = JsonConvert.SerializeObject(new CreateBackupRequest
-        //{
-        //    BackupNamePrefix = backupNamePrefix,
-        //    DateMask = dateMask,
-        //    BackupFileExtension = backupFileExtension,
-        //    BackupNameMiddlePart = backupNameMiddlePart,
-        //    Compress = compress,
-        //    Verify = verify,
-        //    BackupType = backupType,
-        //    DbServerSideBackupPath = dbServerSideBackupPath
-        //});
-        //bodyJsonData, 
         return PostAsyncReturn<BackupFileParameters>(
-            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}/{dbServerFoldersSetName}",
             true, cancellationToken);
     }
 
