@@ -4,8 +4,19 @@ namespace WebAgentDatabasesApiContracts.Errors;
 
 public static class DatabaseApiClientErrors
 {
-    public static readonly Err AppSettingsIsNotCreated = new()
+    public static readonly Err DatabasesBackupFilesExchangeParametersIsNotConfigured = new()
     {
-        ErrorCode = nameof(AppSettingsIsNotCreated), ErrorMessage = "appSettings is not created"
+        ErrorCode = nameof(DatabasesBackupFilesExchangeParametersIsNotConfigured),
+        ErrorMessage = "Databases Backup Files Exchange Parameters Is Not Configured"
+    };
+
+    public static readonly Err BaseBackupParametersIsNotCreated = new()
+    {
+        ErrorCode = nameof(BaseBackupParametersIsNotCreated), ErrorMessage = "Base Backup Parameters Is Not Created"
+    };
+
+    public static readonly Err BackupFileParametersIsNull = new()
+    {
+        ErrorCode = nameof(BackupFileParametersIsNull), ErrorMessage = "BackupFileParameters Is Null"
     };
 }
