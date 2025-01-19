@@ -84,10 +84,9 @@ public sealed class DatabaseApiClient : ApiClient
             Suffix = suffix,
             Name = name,
             DateMask = dateMask,
-            DbServerFoldersSetName = dbServerFoldersSetName
         });
         return PutAsync(
-            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}",
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}/{dbServerFoldersSetName}",
             bodyJsonData, cancellationToken);
     }
 
