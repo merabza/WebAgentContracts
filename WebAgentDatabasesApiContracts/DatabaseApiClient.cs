@@ -80,10 +80,7 @@ public sealed class DatabaseApiClient : ApiClient
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
-            Prefix = prefix,
-            Suffix = suffix,
-            Name = name,
-            DateMask = dateMask,
+            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask
         });
         return PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}/{dbServerFoldersSetName}",
