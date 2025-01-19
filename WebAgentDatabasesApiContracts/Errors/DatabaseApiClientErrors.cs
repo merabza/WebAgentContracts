@@ -27,9 +27,7 @@ public static class DatabaseApiClientErrors
 
     public static readonly Err DatabaseServerDataIsNotConfigured = new()
     {
-        ErrorCode = nameof(DatabaseServerDataIsNotConfigured), ErrorMessage = "Database Server Data Is Not Configured"
+        ErrorCode = nameof(DatabaseServerDataIsNotConfigured),
+        ErrorMessage = "Database Server Data Is Not Configured"
     };
-
-    
-
 }
