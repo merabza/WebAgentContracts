@@ -14,7 +14,7 @@ public sealed class BackupFileParameters
 
     public string Prefix { get; set; }
     public string Suffix { get; set; }
-    public string? FolderName { get; }
+    public string? FolderName { get; set; }
     public string Name { get; set; }
     public string DateMask { get; set; }
 }

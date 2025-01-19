@@ -25,4 +25,11 @@ public static class DatabaseApiClientErrors
         ErrorCode = nameof(ErrorWhenRestoreDatabase), ErrorMessage = "Error When Restore Database"
     };
 
+    public static readonly Err DatabaseServerDataIsNotConfigured = new()
+    {
+        ErrorCode = nameof(DatabaseServerDataIsNotConfigured), ErrorMessage = "Database Server Data Is Not Configured"
+    };
+
+    
+
 }
