@@ -19,4 +19,10 @@ public static class DatabaseApiClientErrors
     {
         ErrorCode = nameof(BackupFileParametersIsNull), ErrorMessage = "BackupFileParameters Is Null"
     };
+
+    public static readonly Err ErrorWhenRestoreDatabase = new()
+    {
+        ErrorCode = nameof(ErrorWhenRestoreDatabase), ErrorMessage = "Error When Restore Database"
+    };
+
 }
