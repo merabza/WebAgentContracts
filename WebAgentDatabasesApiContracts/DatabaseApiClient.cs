@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApiContracts;
 using DbTools.Models;
 using LanguageExt;
+using LibDatabaseParameters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OneOf;
@@ -36,12 +37,13 @@ public sealed class DatabaseApiClient : ApiClient
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public Task<OneOf<BackupFileParameters, IEnumerable<Err>>> CreateBackup(string backupBaseName,
-        string dbServerFoldersSetName, CancellationToken cancellationToken = default)
+    public Task<OneOf<BackupFileParameters, IEnumerable<Err>>> CreateBackup(
+        DatabaseBackupParametersDomain databaseBackupParameters, string backupBaseName, string dbServerFoldersSetName,
+        CancellationToken cancellationToken = default)
     {
         return PostAsyncReturn<BackupFileParameters>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.CreateBackupPrefix}/{backupBaseName}/{dbServerFoldersSetName}",
-            true, cancellationToken);
+            true, JsonConvert.SerializeObject(databaseBackupParameters), cancellationToken);
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
