@@ -118,7 +118,7 @@ public sealed class DatabaseApiClient : ApiClient
     public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseFoldersSetNames(CancellationToken cancellationToken)
     {
         return GetAsyncReturn<List<string>>(
-            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSetNames, false,
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSetNames, true,
             cancellationToken);
     }
 
