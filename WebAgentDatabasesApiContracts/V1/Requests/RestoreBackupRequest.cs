@@ -1,4 +1,6 @@
-﻿namespace WebAgentDatabasesApiContracts.V1.Requests;
+﻿using DbTools;
+
+namespace WebAgentDatabasesApiContracts.V1.Requests;
 
 public sealed class RestoreBackupRequest
 {
@@ -6,4 +8,5 @@ public sealed class RestoreBackupRequest
     public string? Suffix { get; set; }
     public string? Name { get; set; }
     public string? DateMask { get; set; }
+    public EDatabaseRecoveryModel? DatabaseRecoveryModel { get; set; }
 }

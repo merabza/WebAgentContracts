@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using ApiContracts;
+using DbTools;
 using DbTools.Models;
 using LanguageExt;
 using LibDatabaseParameters;
@@ -78,11 +79,15 @@ public sealed class DatabaseApiClient : ApiClient
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
     public Task<Option<IEnumerable<Err>>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
         string dateMask, string databaseName, string dbServerFoldersSetName,
-        CancellationToken cancellationToken = default)
+        EDatabaseRecoveryModel databaseRecoveryModel, CancellationToken cancellationToken = default)
     {
         var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
-            Prefix = prefix, Suffix = suffix, Name = name, DateMask = dateMask
+            Prefix = prefix,
+            Suffix = suffix,
+            Name = name,
+            DateMask = dateMask,
+            DatabaseRecoveryModel = databaseRecoveryModel
         });
         return PutAsync(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.RestoreBackupPrefix}/{databaseName}/{dbServerFoldersSetName}",
