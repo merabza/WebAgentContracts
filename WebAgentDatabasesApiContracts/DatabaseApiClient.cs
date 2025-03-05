@@ -133,4 +133,12 @@ public sealed class DatabaseApiClient : ApiClient
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, false,
             cancellationToken);
     }
+
+    public ValueTask<Option<IEnumerable<Err>>> ChangeDatabaseRecoveryModel(string databaseName,
+        EDatabaseRecoveryModel databaseRecoveryModel, CancellationToken cancellationToken)
+    {
+        return PostAsync(
+            $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.ChangeDatabaseRecoveryModel}/{databaseName}/{databaseRecoveryModel.ToString()}",
+            cancellationToken);
+    }
 }
