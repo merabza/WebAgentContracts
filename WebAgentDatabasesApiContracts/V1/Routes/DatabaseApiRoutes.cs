@@ -45,7 +45,9 @@ public static class DatabaseApiRoutes
 
         //// POST api/databases/recompileprocedures/{databaseName}
         public const string ChangeDatabaseRecoveryModelPrefix = "/changedatabaserecoverymodel";
-        public const string ChangeDatabaseRecoveryModel = ChangeDatabaseRecoveryModelPrefix + "/{databaseName}/{databaseRecoveryModel}";
+
+        public const string ChangeDatabaseRecoveryModel =
+            ChangeDatabaseRecoveryModelPrefix + "/{databaseName}/{databaseRecoveryModel}";
 
         //// GET api/databases/testconnection/{databaseName?}
         public const string TestConnectionPrefix = "/testconnection";
