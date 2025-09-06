@@ -61,7 +61,7 @@ public sealed class DatabaseApiClient : ApiClient
         CancellationToken cancellationToken = default)
     {
         return GetAsyncReturn<List<DatabaseInfoModel>>(
-            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, false,
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseNames, true,
             cancellationToken);
     }
 
@@ -73,7 +73,7 @@ public sealed class DatabaseApiClient : ApiClient
     {
         return GetAsyncReturn<bool>(
             $"{DatabaseApiRoutes.Database.DatabaseBase}{DatabaseApiRoutes.Database.IsDatabaseExistsPrefix}/{databaseName}",
-            false, cancellationToken);
+            true, cancellationToken);
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
@@ -130,7 +130,7 @@ public sealed class DatabaseApiClient : ApiClient
     public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
     {
         return GetAsyncReturn<List<string>>(
-            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, false,
+            DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, true,
             cancellationToken);
     }
 
