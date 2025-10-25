@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using ApiContracts;
@@ -24,7 +23,7 @@ public sealed class ProjectsApiClient : ApiClient
     {
     }
 
-    public Task<OneOf<string, IEnumerable<Err>>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, Err[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
         return GetAsyncAsString(
@@ -32,7 +31,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public Task<OneOf<string, IEnumerable<Err>>> GetVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, Err[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
         return GetAsyncAsString(
@@ -40,15 +39,15 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<Option<IEnumerable<Err>>> RemoveProjectAndService(string projectName, string environmentName,
-        bool isService, CancellationToken cancellationToken = default)
+    public ValueTask<Option<Err[]>> RemoveProjectAndService(string projectName, string environmentName, bool isService,
+        CancellationToken cancellationToken = default)
     {
         return DeleteAsync(
             $"{ProjectsApiRoutes.Projects.ProjectBase}{ProjectsApiRoutes.Projects.RemoveProjectServicePrefix}/{projectName}/{environmentName}/{isService}",
             cancellationToken);
     }
 
-    public ValueTask<Option<IEnumerable<Err>>> StartService(string projectName, string environmentName,
+    public ValueTask<Option<Err[]>> StartService(string projectName, string environmentName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -56,7 +55,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<Option<IEnumerable<Err>>> StopService(string projectName, string environmentName,
+    public ValueTask<Option<Err[]>> StopService(string projectName, string environmentName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -64,7 +63,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<OneOf<string, IEnumerable<Err>>> InstallProgram(string projectName, string environmentName,
+    public ValueTask<OneOf<string, Err[]>> InstallProgram(string projectName, string environmentName,
         string programArchiveDateMask, string programArchiveExtension, string parametersFileDateMask,
         string parametersFileExtension, CancellationToken cancellationToken = default)
     {
@@ -84,7 +83,7 @@ public sealed class ProjectsApiClient : ApiClient
             bodyJsonData, cancellationToken);
     }
 
-    public ValueTask<OneOf<string, IEnumerable<Err>>> InstallService(string projectName, string environmentName,
+    public ValueTask<OneOf<string, Err[]>> InstallService(string projectName, string environmentName,
         string serviceUserName, string appSettingsFileName, string programArchiveDateMask,
         string programArchiveExtension, string parametersFileDateMask, string parametersFileExtension,
         string? serviceDescriptionSignature, string? projectDescription, CancellationToken cancellationToken = default)
@@ -109,7 +108,7 @@ public sealed class ProjectsApiClient : ApiClient
             true, bodyJsonData, cancellationToken);
     }
 
-    public ValueTask<Option<IEnumerable<Err>>> UpdateAppParametersFile(string projectName, string environmentName,
+    public ValueTask<Option<Err[]>> UpdateAppParametersFile(string projectName, string environmentName,
         string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension,
         CancellationToken cancellationToken = default)
     {

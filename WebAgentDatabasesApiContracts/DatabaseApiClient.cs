@@ -28,7 +28,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //შემოწმდეს არსებული ბაზის მდგომარეობა და საჭიროების შემთხვევაში გამოასწოროს ბაზა
-    public ValueTask<Option<IEnumerable<Err>>> CheckRepairDatabase(string databaseName,
+    public ValueTask<Option<Err[]>> CheckRepairDatabase(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -38,7 +38,7 @@ public sealed class DatabaseApiClient : ApiClient
 
     //დამზადდეს ბაზის სარეზერვო ასლი სერვერის მხარეს.
     //ასევე ამ მეთოდის ამოცანაა უზრუნველყოს ბექაპის ჩამოსაქაჩად ხელმისაწვდომ ადგილას მოხვედრა
-    public Task<OneOf<BackupFileParameters, IEnumerable<Err>>> CreateBackup(
+    public Task<OneOf<BackupFileParameters, Err[]>> CreateBackup(
         DatabaseBackupParametersDomain databaseBackupParameters, string backupBaseName, string dbServerFoldersSetName,
         CancellationToken cancellationToken = default)
     {
@@ -48,7 +48,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //სერვერის მხარეს მონაცემთა ბაზაში ბრძანების გაშვება
-    public ValueTask<Option<IEnumerable<Err>>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
+    public ValueTask<Option<Err[]>> ExecuteCommand(string executeQueryCommand, string? databaseName = null,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -57,7 +57,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //მონაცემთა ბაზების სიის მიღება სერვერიდან
-    public Task<OneOf<List<DatabaseInfoModel>, IEnumerable<Err>>> GetDatabaseNames(
+    public Task<OneOf<List<DatabaseInfoModel>, Err[]>> GetDatabaseNames(
         CancellationToken cancellationToken = default)
     {
         return GetAsyncReturn<List<DatabaseInfoModel>>(
@@ -68,7 +68,7 @@ public sealed class DatabaseApiClient : ApiClient
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, იმის დასადგენად,
     //მიზნის ბაზა უკვე არსებობს თუ არა, რომ არ მოხდეს ამ ბაზის ისე წაშლა ახლით,
     //რომ არსებულის გადანახვა არ მოხდეს.
-    public Task<OneOf<bool, IEnumerable<Err>>> IsDatabaseExists(string databaseName,
+    public Task<OneOf<bool, Err[]>> IsDatabaseExists(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return GetAsyncReturn<bool>(
@@ -77,7 +77,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //გამოიყენება ბაზის დამაკოპირებელ ინსტრუმენტში, დაკოპირებული ბაზის აღსადგენად,
-    public Task<Option<IEnumerable<Err>>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
+    public Task<Option<Err[]>> RestoreDatabaseFromBackup(string prefix, string suffix, string name,
         string dateMask, string databaseName, string dbServerFoldersSetName,
         EDatabaseRecoveryModel databaseRecoveryModel, CancellationToken cancellationToken = default)
     {
@@ -95,7 +95,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //მონაცემთა ბაზაში არსებული პროცედურების რეკომპილირება
-    public ValueTask<Option<IEnumerable<Err>>> RecompileProcedures(string databaseName,
+    public ValueTask<Option<Err[]>> RecompileProcedures(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -103,7 +103,7 @@ public sealed class DatabaseApiClient : ApiClient
             cancellationToken);
     }
 
-    public Task<Option<IEnumerable<Err>>> TestConnection(string? databaseName,
+    public Task<Option<Err[]>> TestConnection(string? databaseName,
         CancellationToken cancellationToken = default)
     {
         return GetAsync(
@@ -112,7 +112,7 @@ public sealed class DatabaseApiClient : ApiClient
     }
 
     //მონაცემთა ბაზაში არსებული სტატისტიკების დაანგარიშება
-    public ValueTask<Option<IEnumerable<Err>>> UpdateStatistics(string databaseName,
+    public ValueTask<Option<Err[]>> UpdateStatistics(string databaseName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -120,21 +120,21 @@ public sealed class DatabaseApiClient : ApiClient
             cancellationToken);
     }
 
-    public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseFoldersSetNames(CancellationToken cancellationToken)
+    public Task<OneOf<List<string>, Err[]>> GetDatabaseFoldersSetNames(CancellationToken cancellationToken)
     {
         return GetAsyncReturn<List<string>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseFoldersSetNames, true,
             cancellationToken);
     }
 
-    public Task<OneOf<List<string>, IEnumerable<Err>>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
+    public Task<OneOf<List<string>, Err[]>> GetDatabaseConnectionNames(CancellationToken cancellationToken)
     {
         return GetAsyncReturn<List<string>>(
             DatabaseApiRoutes.Database.DatabaseBase + DatabaseApiRoutes.Database.GetDatabaseConnectionNames, true,
             cancellationToken);
     }
 
-    public ValueTask<Option<IEnumerable<Err>>> ChangeDatabaseRecoveryModel(string databaseName,
+    public ValueTask<Option<Err[]>> ChangeDatabaseRecoveryModel(string databaseName,
         EDatabaseRecoveryModel databaseRecoveryModel, CancellationToken cancellationToken)
     {
         return PostAsync(
