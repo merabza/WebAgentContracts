@@ -2,21 +2,21 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using ApiContracts;
-using DbTools;
-using DbTools.Models;
+using DatabaseTools.DbTools;
+using DatabaseTools.DbTools.Models;
 using LanguageExt;
-using LibDatabaseParameters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OneOf;
-using StringMessagesApiContracts;
-using SystemToolsShared.Errors;
-using WebAgentDatabasesApiContracts.V1.Requests;
-using WebAgentDatabasesApiContracts.V1.Responses;
-using WebAgentDatabasesApiContracts.V1.Routes;
+using ParametersManagement.LibDatabaseParameters;
+using SystemTools.ApiContracts;
+using SystemTools.StringMessagesApiContracts;
+using SystemTools.SystemToolsShared.Errors;
+using WebAgentContracts.WebAgentDatabasesApiContracts.V1.Requests;
+using WebAgentContracts.WebAgentDatabasesApiContracts.V1.Responses;
+using WebAgentContracts.WebAgentDatabasesApiContracts.V1.Routes;
 
-namespace WebAgentDatabasesApiContracts;
+namespace WebAgentContracts.WebAgentDatabasesApiContracts;
 
 public sealed class DatabaseApiClient : ApiClient
 {

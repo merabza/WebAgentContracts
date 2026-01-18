@@ -1,4 +1,4 @@
-﻿namespace WebAgentProjectsApiContracts.V1.Requests;
+﻿namespace WebAgentContracts.WebAgentProjectsApiContracts.V1.Requests;
 
 public sealed class UpdateServiceRequest
 {

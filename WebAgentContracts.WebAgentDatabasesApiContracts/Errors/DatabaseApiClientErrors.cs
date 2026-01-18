@@ -1,6 +1,6 @@
-﻿using SystemToolsShared.Errors;
+﻿using SystemTools.SystemToolsShared.Errors;
 
-namespace WebAgentDatabasesApiContracts.Errors;
+namespace WebAgentContracts.WebAgentDatabasesApiContracts.Errors;
 
 public static class DatabaseApiClientErrors
 {

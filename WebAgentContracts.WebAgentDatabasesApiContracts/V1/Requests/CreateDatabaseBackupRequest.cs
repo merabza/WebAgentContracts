@@ -1,6 +1,6 @@
-﻿using DbTools;
+﻿using DatabaseTools.DbTools;
 
-namespace WebAgentDatabasesApiContracts.V1.Requests;
+namespace WebAgentContracts.WebAgentDatabasesApiContracts.V1.Requests;
 
 public sealed class CreateDatabaseBackupRequest
 {

@@ -1,4 +1,4 @@
-﻿namespace WebAgentDatabasesApiContracts.V1.Routes;
+﻿namespace WebAgentContracts.WebAgentDatabasesApiContracts.V1.Routes;
 
 public static class DatabaseApiRoutes
 {

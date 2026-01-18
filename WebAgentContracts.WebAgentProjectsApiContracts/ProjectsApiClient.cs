@@ -1,17 +1,17 @@
 ﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using ApiContracts;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OneOf;
-using StringMessagesApiContracts;
-using SystemToolsShared.Errors;
-using WebAgentProjectsApiContracts.V1.Requests;
-using WebAgentProjectsApiContracts.V1.Routes;
+using SystemTools.ApiContracts;
+using SystemTools.StringMessagesApiContracts;
+using SystemTools.SystemToolsShared.Errors;
+using WebAgentContracts.WebAgentProjectsApiContracts.V1.Requests;
+using WebAgentContracts.WebAgentProjectsApiContracts.V1.Routes;
 
-namespace WebAgentProjectsApiContracts;
+namespace WebAgentContracts.WebAgentProjectsApiContracts;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed class ProjectsApiClient : ApiClient
