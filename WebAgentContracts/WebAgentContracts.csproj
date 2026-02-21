@@ -1,20 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <PackageId>WebAgentContracts</PackageId>
         <Version>1.0.0</Version>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebAgentContracts.WebAgentDatabasesApiContracts\WebAgentContracts.WebAgentDatabasesApiContracts.csproj" />
-      <ProjectReference Include="..\WebAgentContracts.WebAgentProjectsApiContracts\WebAgentContracts.WebAgentProjectsApiContracts.csproj" />
+        <ProjectReference
+            Include="..\WebAgentContracts.WebAgentDatabasesApiContracts\WebAgentContracts.WebAgentDatabasesApiContracts.csproj" />
+        <ProjectReference
+            Include="..\WebAgentContracts.WebAgentProjectsApiContracts\WebAgentContracts.WebAgentProjectsApiContracts.csproj" />
     </ItemGroup>
 
 </Project>
