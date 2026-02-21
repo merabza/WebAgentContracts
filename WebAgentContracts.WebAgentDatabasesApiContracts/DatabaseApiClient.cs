@@ -79,7 +79,7 @@ public sealed class DatabaseApiClient : ApiClient
         string databaseName, string dbServerFoldersSetName, EDatabaseRecoveryModel databaseRecoveryModel,
         CancellationToken cancellationToken = default)
     {
-        var bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
+        string bodyJsonData = JsonConvert.SerializeObject(new RestoreBackupRequest
         {
             Prefix = prefix,
             Suffix = suffix,
