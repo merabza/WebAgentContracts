@@ -24,4 +24,8 @@
     <ProjectReference Include="..\..\SystemTools\SystemTools.SystemToolsShared\SystemTools.SystemToolsShared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="V1\Responses\" />
+  </ItemGroup>
+
 </Project>
