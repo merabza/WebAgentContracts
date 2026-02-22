@@ -77,7 +77,7 @@ public sealed class ProjectsApiClient : ApiClient
             ParametersFileExtension = parametersFileExtension
         };
 
-        var bodyJsonData = JsonConvert.SerializeObject(body);
+        string bodyJsonData = JsonConvert.SerializeObject(body);
 
         return PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.Update, true,
             bodyJsonData, cancellationToken);
@@ -102,7 +102,7 @@ public sealed class ProjectsApiClient : ApiClient
             ProjectDescription = projectDescription
         };
 
-        var bodyJsonData = JsonConvert.SerializeObject(body);
+        string bodyJsonData = JsonConvert.SerializeObject(body);
 
         return PostAsyncReturnString(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateService,
             true, bodyJsonData, cancellationToken);
@@ -120,7 +120,7 @@ public sealed class ProjectsApiClient : ApiClient
             ParametersFileDateMask = parametersFileDateMask,
             ParametersFileExtension = parametersFileExtension
         };
-        var bodyJsonData = JsonConvert.SerializeObject(body);
+        string bodyJsonData = JsonConvert.SerializeObject(body);
 
         return PostAsync(ProjectsApiRoutes.Projects.ProjectBase + ProjectsApiRoutes.Projects.UpdateSettings, true,
             bodyJsonData, cancellationToken);
