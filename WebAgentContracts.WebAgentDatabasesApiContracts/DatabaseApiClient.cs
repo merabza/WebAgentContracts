@@ -20,7 +20,6 @@ namespace WebAgentContracts.WebAgentDatabasesApiContracts;
 
 public sealed class DatabaseApiClient : ApiClient
 {
-    // ReSharper disable once ConvertToPrimaryConstructor
     public DatabaseApiClient(ILogger logger, IHttpClientFactory httpClientFactory, string server, string? apiKey,
         bool useConsole) : base(logger, httpClientFactory, server, apiKey, new StringMessageHubClient(server, apiKey),
         useConsole)

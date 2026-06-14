@@ -2,7 +2,6 @@
 
 public sealed class BackupFileParameters
 {
-    // ReSharper disable once ConvertToPrimaryConstructor
     public BackupFileParameters(string? folderName, string name, string prefix, string suffix, string dateMask)
     {
         FolderName = folderName;
