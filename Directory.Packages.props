@@ -1,9 +1,9 @@
 <Project>
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
-    <PackageVersion Include="OneOf" Version="3.0.271" />
-  </ItemGroup>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
+        <PackageVersion Include="OneOf" Version="3.0.271" />
+    </ItemGroup>
 </Project>

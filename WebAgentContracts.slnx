@@ -19,5 +19,4 @@
     </Folder>
     <Project Path="WebAgentContracts.WebAgentDatabasesApiContracts/WebAgentContracts.WebAgentDatabasesApiContracts.csproj" />
     <Project Path="WebAgentContracts.WebAgentProjectsApiContracts/WebAgentContracts.WebAgentProjectsApiContracts.csproj" />
-    <Project Path="WebAgentContracts/WebAgentContracts.csproj" />
 </Solution>
