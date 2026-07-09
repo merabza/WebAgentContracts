@@ -1,15 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
+        <PackageReference Include="DatabaseTools.DbTools" />
         <PackageReference Include="OneOf" />
+        <PackageReference Include="ParametersManagement.LibDatabaseParameters" />
         <PackageReference Include="SystemTools.ApiContracts" />
         <PackageReference Include="SystemTools.StringMessagesApiContracts" />
         <PackageReference Include="SystemTools.SystemToolsShared" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\DatabaseTools\DatabaseTools.DbTools\DatabaseTools.DbTools.csproj" />
-        <ProjectReference Include="..\..\ParametersManagement\ParametersManagement.LibDatabaseParameters\ParametersManagement.LibDatabaseParameters.csproj" />
     </ItemGroup>
 
 </Project>

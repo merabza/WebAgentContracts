@@ -1,12 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="DatabaseTools.DbTools" Version="1.0.9686.33837" />
+    <PackageVersion Include="ParametersManagement.LibDatabaseParameters" Version="1.0.9686.34062" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
     <PackageVersion Include="OneOf" Version="3.0.271" />
-    <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9686.26889" />
-    <PackageVersion Include="SystemTools.StringMessagesApiContracts" Version="1.0.9686.26889" />
-    <PackageVersion Include="SystemTools.SystemToolsShared" Version="1.0.9686.26889" />
+    <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9686.33588" />
+    <PackageVersion Include="SystemTools.StringMessagesApiContracts" Version="1.0.9686.33588" />
+    <PackageVersion Include="SystemTools.SystemToolsShared" Version="1.0.9686.33588" />
   </ItemGroup>
 </Project>
