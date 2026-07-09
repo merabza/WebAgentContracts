@@ -3,6 +3,7 @@
     <ItemGroup>
       <PackageReference Include="SystemTools.ApiContracts" />
       <PackageReference Include="SystemTools.StringMessagesApiContracts" />
+      <PackageReference Include="SystemTools.SystemToolsShared" />
     </ItemGroup>
 
 </Project>
