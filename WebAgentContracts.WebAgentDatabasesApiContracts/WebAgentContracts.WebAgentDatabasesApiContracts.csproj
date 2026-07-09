@@ -2,17 +2,13 @@
 
     <ItemGroup>
         <PackageReference Include="OneOf" />
+        <PackageReference Include="SystemTools.ApiContracts" />
+        <PackageReference Include="SystemTools.StringMessagesApiContracts" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\DatabaseTools\DatabaseTools.DbTools\DatabaseTools.DbTools.csproj" />
-        <ProjectReference
-            Include="..\..\ParametersManagement\ParametersManagement.LibDatabaseParameters\ParametersManagement.LibDatabaseParameters.csproj" />
-        <ProjectReference Include="..\..\SystemTools\SystemTools.ApiContracts\SystemTools.ApiContracts.csproj" />
-        <ProjectReference
-            Include="..\..\SystemTools\SystemTools.StringMessagesApiContracts\SystemTools.StringMessagesApiContracts.csproj" />
-        <ProjectReference
-            Include="..\..\SystemTools\SystemTools.SystemToolsShared\SystemTools.SystemToolsShared.csproj" />
+        <ProjectReference Include="..\..\ParametersManagement\ParametersManagement.LibDatabaseParameters\ParametersManagement.LibDatabaseParameters.csproj" />
     </ItemGroup>
 
 </Project>

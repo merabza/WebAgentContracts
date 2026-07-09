@@ -1,9 +1,11 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
-        <PackageVersion Include="OneOf" Version="3.0.271" />
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
+    <PackageVersion Include="OneOf" Version="3.0.271" />
+    <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9686.26889" />
+    <PackageVersion Include="SystemTools.StringMessagesApiContracts" Version="1.0.9686.26889" />
+  </ItemGroup>
 </Project>

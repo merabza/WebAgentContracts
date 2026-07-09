@@ -1,11 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <ProjectReference Include="..\..\SystemTools\SystemTools.ApiContracts\SystemTools.ApiContracts.csproj" />
-        <ProjectReference
-            Include="..\..\SystemTools\SystemTools.StringMessagesApiContracts\SystemTools.StringMessagesApiContracts.csproj" />
-        <ProjectReference
-            Include="..\..\SystemTools\SystemTools.SystemToolsShared\SystemTools.SystemToolsShared.csproj" />
+      <PackageReference Include="SystemTools.ApiContracts" />
+      <PackageReference Include="SystemTools.StringMessagesApiContracts" />
     </ItemGroup>
 
 </Project>
