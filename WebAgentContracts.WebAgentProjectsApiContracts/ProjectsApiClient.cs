@@ -23,7 +23,7 @@ public sealed class ProjectsApiClient : ApiClient
     {
     }
 
-    public Task<OneOf<string, Error[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, ErrorOmd[]>> GetAppSettingsVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
         return GetAsyncAsString(
@@ -31,7 +31,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public Task<OneOf<string, Error[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
+    public Task<OneOf<string, ErrorOmd[]>> GetVersionByProxy(int serverSidePort, string apiVersionId,
         CancellationToken cancellationToken = default)
     {
         return GetAsyncAsString(
@@ -39,7 +39,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<Option<Error[]>> RemoveProjectAndService(string projectName, string environmentName,
+    public ValueTask<Option<ErrorOmd[]>> RemoveProjectAndService(string projectName, string environmentName,
         bool isService, CancellationToken cancellationToken = default)
     {
         return DeleteAsync(
@@ -47,7 +47,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<Option<Error[]>> StartService(string projectName, string environmentName,
+    public ValueTask<Option<ErrorOmd[]>> StartService(string projectName, string environmentName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -55,7 +55,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<Option<Error[]>> StopService(string projectName, string environmentName,
+    public ValueTask<Option<ErrorOmd[]>> StopService(string projectName, string environmentName,
         CancellationToken cancellationToken = default)
     {
         return PostAsync(
@@ -63,7 +63,7 @@ public sealed class ProjectsApiClient : ApiClient
             cancellationToken);
     }
 
-    public ValueTask<OneOf<string, Error[]>> InstallProgram(string projectName, string environmentName,
+    public ValueTask<OneOf<string, ErrorOmd[]>> InstallProgram(string projectName, string environmentName,
         string programArchiveDateMask, string programArchiveExtension, string parametersFileDateMask,
         string parametersFileExtension, CancellationToken cancellationToken = default)
     {
@@ -83,7 +83,7 @@ public sealed class ProjectsApiClient : ApiClient
             bodyJsonData, cancellationToken);
     }
 
-    public ValueTask<OneOf<string, Error[]>> InstallService(string projectName, string environmentName,
+    public ValueTask<OneOf<string, ErrorOmd[]>> InstallService(string projectName, string environmentName,
         string serviceUserName, string appSettingsFileName, string programArchiveDateMask,
         string programArchiveExtension, string parametersFileDateMask, string parametersFileExtension,
         string? serviceDescriptionSignature, string? projectDescription, CancellationToken cancellationToken = default)
@@ -108,7 +108,7 @@ public sealed class ProjectsApiClient : ApiClient
             true, bodyJsonData, cancellationToken);
     }
 
-    public ValueTask<Option<Error[]>> UpdateAppParametersFile(string projectName, string environmentName,
+    public ValueTask<Option<ErrorOmd[]>> UpdateAppParametersFile(string projectName, string environmentName,
         string appSettingsFileName, string parametersFileDateMask, string parametersFileExtension,
         CancellationToken cancellationToken = default)
     {
