@@ -1,32 +1,22 @@
-﻿using SystemTools.SystemToolsShared.Errors;
+﻿using SystemTools.SharedKernel;
 
 namespace WebAgentContracts.WebAgentDatabasesApiContracts.Errors;
 
 public static class DatabaseApiClientErrors
 {
-    public static readonly ErrorOmd DatabasesBackupFilesExchangeParametersIsNotConfigured = new()
-    {
-        Code = nameof(DatabasesBackupFilesExchangeParametersIsNotConfigured),
-        Name = "Databases Backup Files Exchange Parameters Is Not Configured"
-    };
+    public static Error DatabasesBackupFilesExchangeParametersIsNotConfigured =>
+        Error.Problem(nameof(DatabasesBackupFilesExchangeParametersIsNotConfigured),
+            "Databases Backup Files Exchange Parameters Is Not Configured");
 
-    public static readonly ErrorOmd BaseBackupParametersIsNotCreated = new()
-    {
-        Code = nameof(BaseBackupParametersIsNotCreated), Name = "Base Backup Parameters Is Not Created"
-    };
+    public static Error BaseBackupParametersIsNotCreated =>
+        Error.Problem(nameof(BaseBackupParametersIsNotCreated), "Base Backup Parameters Is Not Created");
 
-    public static readonly ErrorOmd BackupFileParametersIsNull = new()
-    {
-        Code = nameof(BackupFileParametersIsNull), Name = "BackupFileParameters Is Null"
-    };
+    public static Error BackupFileParametersIsNull =>
+        Error.Problem(nameof(BackupFileParametersIsNull), "BackupFileParameters Is Null");
 
-    public static readonly ErrorOmd ErrorWhenRestoreDatabase = new()
-    {
-        Code = nameof(ErrorWhenRestoreDatabase), Name = "ErrorOmd When Restore Database"
-    };
+    public static Error ErrorWhenRestoreDatabase =>
+        Error.Problem(nameof(ErrorWhenRestoreDatabase), "ErrorOmd When Restore Database");
 
-    public static readonly ErrorOmd DatabaseServerDataIsNotConfigured = new()
-    {
-        Code = nameof(DatabaseServerDataIsNotConfigured), Name = "Database Server Data Is Not Configured"
-    };
+    public static Error DatabaseServerDataIsNotConfigured =>
+        Error.Problem(nameof(DatabaseServerDataIsNotConfigured), "Database Server Data Is Not Configured");
 }
