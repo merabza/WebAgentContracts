@@ -15,7 +15,7 @@ public static class DatabaseApiClientErrors
         Error.Problem(nameof(BackupFileParametersIsNull), "BackupFileParameters Is Null");
 
     public static Error ErrorWhenRestoreDatabase =>
-        Error.Problem(nameof(ErrorWhenRestoreDatabase), "ErrorOmd When Restore Database");
+        Error.Problem(nameof(ErrorWhenRestoreDatabase), "Error When Restore Database");
 
     public static Error DatabaseServerDataIsNotConfigured =>
         Error.Problem(nameof(DatabaseServerDataIsNotConfigured), "Database Server Data Is Not Configured");
