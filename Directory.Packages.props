@@ -4,12 +4,12 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="DatabaseTools.DbTools" Version="1.0.9790.25611" />
-    <PackageVersion Include="ParametersManagement.LibDatabaseParameters" Version="1.0.9790.26380" />
+    <PackageVersion Include="DatabaseTools.DbTools" Version="1.0.9790.27167" />
+    <PackageVersion Include="ParametersManagement.LibDatabaseParameters" Version="1.0.9790.27216" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.35.0.4138" />
     <PackageVersion Include="OneOf" Version="3.0.271" />
-    <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9790.24772" />
-    <PackageVersion Include="SystemTools.StringMessagesApiContracts" Version="1.0.9790.24772" />
-    <PackageVersion Include="SystemTools.SystemToolsShared" Version="1.0.9790.24772" />
+    <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9790.27014" />
+    <PackageVersion Include="SystemTools.StringMessagesApiContracts" Version="1.0.9790.27014" />
+    <PackageVersion Include="SystemTools.SystemToolsShared" Version="1.0.9790.27014" />
   </ItemGroup>
 </Project>
