@@ -1,4 +1,6 @@
-﻿namespace WebAgentContracts.WebAgentProjectsApiContracts.V1.Requests;
+﻿using System.Collections.Generic;
+
+namespace WebAgentContracts.WebAgentProjectsApiContracts.V1.Requests;
 
 public sealed class UpdateServiceRequest
 {
@@ -12,4 +14,8 @@ public sealed class UpdateServiceRequest
     public string? ParametersFileExtension { get; set; }
     public string? ServiceDescriptionSignature { get; set; }
     public string? ProjectDescription { get; set; }
+
+    //firewall-ში გასახსნელი პორტები (SupportTools-ის ServerInfo-ს OpenPort); null ან ცარიელი სია ნიშნავს, რომ
+    //არაფერი იხსნება
+    public List<int>? PortsToOpen { get; set; }
 }
