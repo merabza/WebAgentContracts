@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="DatabaseTools.DbTools" Version="1.0.9811.42431" />
-    <PackageVersion Include="ParametersManagement.LibDatabaseParameters" Version="1.0.9811.42457" />
+    <PackageVersion Include="ParametersManagement.LibDatabaseParameters" Version="1.0.9818.30580" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.35.0.4138" />
     <PackageVersion Include="OneOf" Version="3.0.271" />
     <PackageVersion Include="SystemTools.ApiContracts" Version="1.0.9811.42356" />
