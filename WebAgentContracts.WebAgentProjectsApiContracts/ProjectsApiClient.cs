@@ -85,8 +85,7 @@ public sealed class ProjectsApiClient : ApiClient
     public ValueTask<Result<string>> InstallService(string projectName, string environmentName, string serviceUserName,
         string appSettingsFileName, string programArchiveDateMask, string programArchiveExtension,
         string parametersFileDateMask, string parametersFileExtension, string? serviceDescriptionSignature,
-        string? projectDescription, IReadOnlyCollection<int> portsToOpen,
-        CancellationToken cancellationToken = default)
+        string? projectDescription, IReadOnlyCollection<int> portsToOpen, CancellationToken cancellationToken = default)
     {
         var body = new UpdateServiceRequest
         {
